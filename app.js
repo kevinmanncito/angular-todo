@@ -29,6 +29,10 @@ app.get('/', routes.index);
 
 // api urls
 app.get('/api/items', api.items);
+app.get('/api/item/:id', api.item);
+app.delete('/api/item/:id', api.deleteItem);
+app.post('/api/item/:id', api.updateOrCreateItem);
+app.post('/api/item', api.updateOrCreateItem);
 
 http.createServer(app).listen(app.get('port'), function(){
     console.log('Express server listening on port ' + app.get('port'));
