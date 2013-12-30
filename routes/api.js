@@ -44,12 +44,14 @@ exports.updateOrCreateItem = function(req, res){
             id,
             {$set: req.body},
             function(e, docs){});
+        return res.send({success: true});
     // If id is undefined we are creating a new item
     } else {
-        collection.insert(
-            req.body,
-            function(err,doc){});
-        console.log("Creating a new item");
+        var newItem = collection.insert(
+                      req.body,
+                      function(err,doc){});
+                      console.log("Creating a new item");
+        console.log(newItem.query);
+        return res.send({success: true, item: newItem.query});
     }
-    return res.send({success: true});
 }

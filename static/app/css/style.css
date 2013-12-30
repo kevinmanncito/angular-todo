@@ -13,6 +13,10 @@ table td {
     text-align: center;
 }
 
-#description {
+.hidden {
     display: none;
+}
+
+.row {
+    margin: 5px 0;
 }

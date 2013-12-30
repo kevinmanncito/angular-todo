@@ -7,11 +7,33 @@ todoListControllers.controller('TodoListCtrl', ['$scope', '$http', 'Items',
 
         $scope.items = Items.query();
         $scope.orderProp = 'created';
-        
+        $scope.inputClass = "hidden";
+        $scope.addItemButtonClass = "";
+
+        // Events
         $scope.finishItem = function(id) {
             console.log(id);
             $http.post('/api/item/' + id, {"active": false}).success(function(data){
                 _.findWhere($scope.items, {_id: id}).active = false;
             });
         }
+
+        $scope.showInput = function() {
+            console.log("here");
+            $scope.inputClass = "";
+            $scope.addItemButtonClass = "hidden";
+        }
+
+        $scope.createNewItem = function(description) {
+            console.log(description);
+            $http.post('/api/item', {"description": description,
+                                     "created": new Date(),
+                                     "active": true}).success(function(data){
+                $scope.items.push(data.item);
+            })
+            $scope.inputClass = "hidden";
+            $scope.addItemButtonClass = "";
+            $scope.description = "";
+        }
+
     }]);

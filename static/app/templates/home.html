@@ -1,9 +1,14 @@
 <h1>
     To-Do Items
-    <button id="addItem">+</button>
+    <button class="{{addItemButtonClass}}" ng-click="showInput()">+</button>
+    <button class="{{inputClass}}" ng-click="createNewItem(description)">Go</button>
 </h1>
-<input id="description" placeholder="Description">
-Search: <input ng-model="query">
+<div class="{{inputClass}}">
+    <input id="description" placeholder="Description" ng-model="description" value="{{descriptionInput}}">
+</div>
+<div class="row">
+    <input ng-model="query" placeholder="Search items">
+</div>
 <div id="content">
     <table>
         <tr ng-repeat="item in items | filter:{description:query, active: true} | orderBy:orderProp">
