@@ -1,25 +1,17 @@
 'use strict';
 
-var angularTodoApp = angular.module('angularTodoApp', []);
+var todoListControllers = angular.module('todoListControllers', []);
 
-angularTodoApp.controller('TodoListCtrl', function($scope, $http) {
+todoListControllers.controller('TodoListCtrl', ['$scope', '$http', 'Items',
+    function($scope, $http, Items){
 
-    $http.get('/api/items').success(function(data) {
-        console.log(data);
-        for (var i = 0; i < data.length; i++) {
-            data[i].created = new Date(data[i].created.replace(/-/g,"/"));
-        };
-        console.log(data);
-        $scope.items = data;
-    });
-
-    $scope.orderProp = 'created';
-
-    $scope.finishItem = function(id) {
-        console.log(id);
-        $http.post('/api/item/' + id, {"active": false}).success(function(data){
-            console.log(data);
-            console.log($scope.items);
-        });
-    }
-});
+        $scope.items = Items.query();
+        $scope.orderProp = 'created';
+        
+        $scope.finishItem = function(id) {
+            console.log(id);
+            $http.post('/api/item/' + id, {"active": false}).success(function(data){
+                _.findWhere($scope.items, {_id: id}).active = false;
+            });
+        }
+    }]);

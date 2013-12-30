@@ -1,0 +1,16 @@
+<h1>
+    To-Do Items
+    <button id="addItem">+</button>
+</h1>
+<input id="description" placeholder="Description">
+Search: <input ng-model="query">
+<div id="content">
+    <table>
+        <tr ng-repeat="item in items | filter:{description:query, active: true} | orderBy:orderProp">
+            <td>{{item.description}}: {{item.created | date:'shortDate'}}</td>
+            <td>
+                <button ng-click="finishItem(item._id)">-</button>
+            </td>
+        </tr>
+    </table>
+</div>
