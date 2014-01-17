@@ -7,11 +7,17 @@
     <input id="description" placeholder="Description" ng-model="description" value="{{descriptionInput}}">
 </div>
 <div class="row">
-    <input ng-model="query" placeholder="Search items">
+    <input type="text" ng-model="query" placeholder="Search items">
+</div>
+<div>
+    <input type="checkbox" id="typeFilter" ng-model="typeFilter">
+    <label id="typeFilter">
+        Show past items
+    </label>
 </div>
 <div id="content">
     <table>
-        <tr ng-repeat="item in items | filter:{description:query, active: true} | orderBy:orderProp">
+        <tr ng-repeat="item in items | filter:{description:query, active: '!'+typeFilter} | orderBy:orderProp">
             <td>{{item.description}}: {{item.created | date:'shortDate'}}</td>
             <td>
                 <button ng-click="finishItem(item._id)">-</button>

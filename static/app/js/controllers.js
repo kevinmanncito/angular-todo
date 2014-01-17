@@ -7,8 +7,9 @@ todoListControllers.controller('TodoListCtrl', ['$scope', '$http', 'Items',
 
         $scope.items = Items.query();
         $scope.orderProp = 'created';
-        $scope.inputClass = "hidden";
-        $scope.addItemButtonClass = "";
+        $scope.inputClass = 'hidden';
+        $scope.addItemButtonClass = '';
+        $scope.typeFilter = false;
 
         // Events
         $scope.finishItem = function(id) {
